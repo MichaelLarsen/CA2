@@ -26,7 +26,8 @@ public class personTest {
 
     @Before
     public void setUp() {
-        facade = Facade.getFacade(true);
+        facade = Facade.getFacade(true, false);
+//        facade = Facade.getFacade(true, true);
     }
 
     @After
@@ -35,21 +36,29 @@ public class personTest {
     }
 
     @Test
-    public void addPerson() {
+    public void testPerson() {
+        Person person = new Person("Sherlock", "Holmes", "12345678", "sherlock@detective.com");
+        assertEquals(person.getFirstName(), "Sherlock");
+        assertEquals(person.getLastName(), "Holmes");
+        assertEquals(person.getPhone(), "12345678");
+        assertEquals(person.getEmail(), "sherlock@detective.com");
+    }
+    
+    @Test
+    public void addPersonToDB() {
         Person person = facade.addPerson(gson.toJson(new Person("Sherlock", "Holmes", "12345678", "sherlock@detective.com")));
         String expectedJsonString = gson.toJson(person);
         String actual = facade.getPerson(person.getId());
         assertEquals(expectedJsonString, actual);
-
     }
 
     @Test
-    public void getPerson() {
-        addPerson();
+    public void getPersonFromDB() {
+        addPersonToDB();
     }
 
     @Test
-    public void getPersons() {
+    public void getPersonsFromDB() {
         Person p = new Person("Sherlock", "Holmes", "12345678", "sherlock@detective.com");
         Person person1 = facade.addPerson(gson.toJson(p));
         Person p2 = new Person("Mark", "Zuckerberg", "88888888", "M_ZuckerbergCEO@facebook.com");
