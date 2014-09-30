@@ -6,11 +6,19 @@
 package testpackage;
 
 import com.google.gson.Gson;
+import entities.AssistantTeacher;
 import entities.Person;
+import entities.RoleSchool;
+import entities.Student;
+import entities.Teacher;
 import facades.Facade;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.After;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +51,7 @@ public class personTest {
         assertEquals(person.getPhone(), "12345678");
         assertEquals(person.getEmail(), "sherlock@detective.com");
     }
-    
+
     @Test
     public void addPersonToDB() {
         Person person = facade.addPerson(gson.toJson(new Person("Sherlock", "Holmes", "12345678", "sherlock@detective.com")));
@@ -59,8 +67,8 @@ public class personTest {
 
     @Test
     public void getPersonsFromDB() {
-        Person p = new Person("Sherlock", "Holmes", "12345678", "sherlock@detective.com");
-        Person person1 = facade.addPerson(gson.toJson(p));
+        Person p1 = new Person("Sherlock", "Holmes", "12345678", "sherlock@detective.com");
+        Person person1 = facade.addPerson(gson.toJson(p1));
         Person p2 = new Person("Mark", "Zuckerberg", "88888888", "M_ZuckerbergCEO@facebook.com");
         Person person2 = facade.addPerson(gson.toJson(p2));
 
@@ -71,5 +79,24 @@ public class personTest {
         String expected = gson.toJson(test.values());
         String result = facade.getPersons();
         assertEquals(expected, result);
+    }
+
+    @Test
+    public void roleSchool() {
+        Person michael = new Person("Michael", "Larsen", "12345678", "studerende@cphbusiness.dk");
+        RoleSchool student = new Student("3. semester datamatiker");
+        michael.addRole(student);
+        facade.addPerson(gson.toJson(michael));
+        
+        Person andreas = new Person("Andreas", "Løvehjerte", "12345678", "studerende@cphbusiness.dk");
+        RoleSchool assistantTeacher = new AssistantTeacher();
+        andreas.addRole(student);
+        andreas.addRole(assistantTeacher);
+        facade.addPerson(gson.toJson(andreas));
+        
+        Person henrik = new Person("Henrik", "Kan ikke huske", "12345678", "teacher@cphbusiness.dk");
+        RoleSchool teacher = new Teacher("PhD computer science");
+        henrik.addRole(teacher);
+        facade.addPerson(gson.toJson(henrik));
     }
 }
