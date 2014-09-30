@@ -6,12 +6,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author Michael
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Person.getPersonAll", query = "SELECT p FROM Person p"),
+    @NamedQuery(name = "Person.dropAll", query = "DELETE FROM Person p"),
+})
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
