@@ -6,6 +6,8 @@
 package program;
 
 import entities.Person;
+import entities.RoleSchool;
+import entities.Student;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
@@ -15,12 +17,20 @@ import javax.persistence.Persistence;
  */
 public class app {
 
+    
     public static void main(String[] args) {
         EntityManager em = Persistence.createEntityManagerFactory("KA_InheritancePU").createEntityManager();
-        Person person = new Person("Michael", "Larsen", "12345678", "mla@mla.dk");
         em.getTransaction().begin();
-        em.persist(person);
+        
+        Person michael = new Person("Michael", "Larsen", "12345678", "studerende@cphbusiness.dk");
+        RoleSchool student = new Student("3. semester datamatiker");
+//        em.persist(michael);
+        em.persist(student);
+        student.setPerson(michael);
+        
+//        em.flush();
         em.getTransaction().commit();
+        em.close();
 
     }
 }

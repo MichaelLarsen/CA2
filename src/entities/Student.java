@@ -27,7 +27,7 @@ public class Student extends RoleSchool {
 
     @Override
     public String toString() {
-        return "entities.Student[ id=" + getId() + " ]";
+        return "I am a student";
     }
     
 }

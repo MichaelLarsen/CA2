@@ -24,8 +24,15 @@ public class Facade {
      Pass in true to create a new instance. Usefull for testing.
      */
 
+//    public static Facade getFacade(boolean reset) {
+//        if (true) {
+//            instance = new Facade();
+//        }
+//        return instance;
+//    }
+
     public static Facade getFacade(boolean reset) {
-        if (true) {
+        if (reset) {
             instance = new Facade();
         }
         return instance;
@@ -39,9 +46,11 @@ public class Facade {
         try {
             em.persist(person);
             em.getTransaction().commit();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             em.getTransaction().rollback();
-        } finally {
+        }
+        finally {
             em.close();
         }
         return person;
@@ -52,9 +61,11 @@ public class Facade {
         Person person = null;
         try {
             person = em.getReference(Person.class, id);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
-        } finally {
+        }
+        finally {
             em.close();
         }
         return gson.toJson(person);
@@ -67,7 +78,8 @@ public class Facade {
             Collection<Person> personList = query.getResultList();
             String personListJson = gson.toJson(personList);
             return personListJson;
-        } finally {
+        }
+        finally {
             em.close();
         }
     }
@@ -76,16 +88,37 @@ public class Facade {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         try {
-            Query query = em.createNamedQuery("Person.dropAll");
-            int rowsAffected = query.executeUpdate();
+            Query query1 = em.createNamedQuery("RoleSchool.dropAll");
+            Query query2 = em.createNamedQuery("Person.dropAll");
+            int rowsAffected = query1.executeUpdate();
+            rowsAffected += query2.executeUpdate();
             em.getTransaction().commit();
             return rowsAffected;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
-        } finally {
+        }
+        finally {
             em.close();
         }
         return 0;
     }
+    
+    public void persist(Object object) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        try {
+            em.persist(object);
+            em.getTransaction().commit();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        }
+        finally {
+            em.close();
+        }
+    }
+    
 }

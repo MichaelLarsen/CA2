@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,32 +11,60 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  *
  * @author Michael
  */
 @Entity
+@Table(name = "ROLE_SCHOOL")
+@NamedQueries({
+    @NamedQuery(name = "RoleSchool.dropAll", query = "DELETE FROM RoleSchool r"),
+})
 @Inheritance(strategy = InheritanceType.JOINED)
-public class RoleSchool implements Serializable {
+public abstract class RoleSchool implements Serializable {
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="ROLE_ID")
     private Long id;
     
-    @ManyToOne
+    private String roleName;
+    
+//    @JoinColumn(name = "FK_", referencedColumnName = "P_ID")
+    @ManyToOne (cascade=CascadeType.ALL)
     private Person person;
-
+    
     public RoleSchool() {
     }
 
     public RoleSchool(String roleName) {
         this.roleName = roleName;
     }
-    private String roleName;
-    
 
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+        if (!person.getRoles().contains(this)) {
+            person.getRoles().add(this);
+        }
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+    
     public Long getId() {
         return id;
     }

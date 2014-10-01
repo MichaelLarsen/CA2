@@ -9,11 +9,11 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ASSISTENT_TEACHER")
-public class AssistentTeacher extends RoleSchool {
+public class AssistantTeacher extends RoleSchool {
 
     @Override
     public String toString() {
-        return "entities.AssistentTeacher[ id=" + getId() + " ]";
+        return "I am an assistant teacher";
     }
     
 }
