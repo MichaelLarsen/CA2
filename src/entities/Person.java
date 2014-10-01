@@ -1,18 +1,23 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
- *
+ * Emil er dum
  * @author Michael
  */
 @Entity
@@ -29,7 +34,7 @@ public class Person implements Serializable {
     private Long id;
     
     @OneToMany(mappedBy = "person")
-    private Collection<RoleSchool> roleList;
+    private Collection<RoleSchool> roleList = new ArrayList();
     
     @Column(name = "first_name", length = 20)
     private String firstName;
@@ -52,6 +57,17 @@ public class Person implements Serializable {
         this.phone = phone;
         this.email = email;
     }
+    
+    public void addRole(RoleSchool role) {
+        this.roleList.add(role); // slet this
+        if (role.getPerson() != this) {
+            role.setPerson(this);
+        }
+    }
+    
+    public Collection<RoleSchool> getRoles() {
+        return roleList;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -61,7 +77,7 @@ public class Person implements Serializable {
         this.firstName = firstName;
     }
 
-    public String getLasttName() {
+    public String getLastName() {
         return lastName;
     }
 
