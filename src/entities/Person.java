@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -29,13 +30,11 @@ import javax.persistence.OneToMany;
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Expose
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="P_ID")
     private Long id;
-    
-    @OneToMany(mappedBy = "person")
-    private Collection<RoleSchool> roleList = new ArrayList();
     
     @Expose
     @Column(name = "first_name", length = 20)
@@ -46,13 +45,17 @@ public class Person implements Serializable {
     private String lastName;
     
     @Expose
-    @Column(length = 10)
-    private String phone;
+    @OneToMany(mappedBy = "person", cascade = CascadeType.REMOVE)
+    private Collection<RoleSchool> roles = new ArrayList();
     
     @Expose
     @Column(length = 40)
     private String email;
-
+    
+    @Expose
+    @Column(length = 10)
+    private String phone;
+    
     public Person() {
     }
 
@@ -64,14 +67,14 @@ public class Person implements Serializable {
     }
     
     public void addRole(RoleSchool role) {
-        this.roleList.add(role); // slet this
+        this.roles.add(role); // slet this
         if (role.getPerson() != this) {
             role.setPerson(this);
         }
     }
     
     public Collection<RoleSchool> getRoles() {
-        return roleList;
+        return roles;
     }
 
     public String getFirstName() {
@@ -134,7 +137,6 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "Person{" + "first_name=" + firstName + ", last_name=" + lastName + ", phone=" + phone + ", id=" + id + "}";
+        return "{\"firstName\":" + "\"" + firstName + "\"" + ",\"lastName\":" + "\"" + lastName + "\"" + ",\"email\":" + "\"" + email + "\"" + ",\"phone\":" + "\"" + phone + "\"" +"}";
     }
-
 }

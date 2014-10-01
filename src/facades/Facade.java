@@ -54,26 +54,83 @@ public class Facade implements FacadeInterface {
             em.close();
         }
     }
-
     
     @Override
     public String getPersonAsJSON(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        Person person = null;
+        try {
+            person = em.getReference(Person.class, id); // prøv med FIND HVIS PROBLEMER
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            em.close();
+        }
+        return gson.toJson(person);
     }
 
     @Override
-    public Person addPersonFromGson(String json) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Person addPersonFromGSON(String json) {
+        EntityManager em = emf.createEntityManager();
+        Person person = gson.fromJson(json, Person.class);
+
+        em.getTransaction().begin();
+        try {
+            em.persist(person);
+            em.getTransaction().commit();
+        }
+        catch (Exception e) {
+            em.getTransaction().rollback();
+        }
+        finally {
+            em.close();
+        }
+        return person;
     }
 
     @Override
-    public RoleSchool addRoleFromGson(String json, long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public RoleSchool addRoleFromGSON(String json, long id) {
+        EntityManager em = emf.createEntityManager();
+        RoleSchool role = gson.fromJson(json, RoleSchool.class);
+        Person person = null;
+
+        em.getTransaction().begin();
+        try {
+            person = em.getReference(Person.class, id); // prøv med FIND HVIS PROBLEMER
+            role.setPerson(person);
+            em.persist(role);
+            em.getTransaction().commit();
+        }
+        catch (Exception e) {
+            em.getTransaction().rollback();
+        }
+        finally {
+            em.close();
+        }
+        return role;
     }
 
     @Override
     public Person delete(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        Person person = null;
+
+        em.getTransaction().begin();
+        try {
+            person = em.getReference(Person.class, id);
+            em.remove(person);
+            em.getTransaction().commit();
+        }
+        catch (Exception e) {
+            em.getTransaction().rollback();
+            return null;
+        }
+        finally {
+            em.close();
+        }
+        return person;
     }
 
     

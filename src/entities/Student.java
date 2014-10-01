@@ -17,6 +17,7 @@ public class Student extends RoleSchool {
     }
 
     public Student(String semester) {
+        super("Student");
         this.semester = semester;
     }
 
