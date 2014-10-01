@@ -47,13 +47,7 @@ public class Facade implements FacadeInterface {
         try {
             Query query = em.createNamedQuery("Person.getPersonAll");
             Collection<Person> personList = query.getResultList();
-//            for (Person person : personList) {
-//                System.out.println(person);
-//            }
-            System.out.println(personList);
-            System.out.println("-------------");
             String personListJson = gson.toJson(personList);
-            System.out.println(personListJson);
             return personListJson;
         }
         finally {
