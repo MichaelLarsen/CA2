@@ -1,7 +1,9 @@
 package facades;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import entities.Person;
+import entities.RoleSchool;
 import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,9 +14,10 @@ import javax.persistence.Query;
  *
  * @author Michael
  */
-public class Facade {
+public class Facade implements FacadeInterface {
 
-    private final Gson gson = new Gson();
+    private final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+//    private final Gson gson = new Gson();
     private static Facade instance = new Facade();
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("KA_InheritancePU");
 
@@ -30,14 +33,86 @@ public class Facade {
 //        }
 //        return instance;
 //    }
-
     public static Facade getFacade(boolean reset) {
         if (reset) {
             instance = new Facade();
         }
         return instance;
     }
+    
+    
+    @Override
+    public String getPersonsAsJSON() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Query query = em.createNamedQuery("Person.getPersonAll");
+            Collection<Person> personList = query.getResultList();
+//            for (Person person : personList) {
+//                System.out.println(person);
+//            }
+            System.out.println(personList);
+            System.out.println("-------------");
+            String personListJson = gson.toJson(personList);
+            System.out.println(personListJson);
+            return personListJson;
+        }
+        finally {
+            em.close();
+        }
+    }
 
+    
+    @Override
+    public String getPersonAsJSON(long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Person addPersonFromGson(String json) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public RoleSchool addRoleFromGson(String json, long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Person delete(long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public Person addPerson(String json) {
         EntityManager em = emf.createEntityManager();
         Person person = gson.fromJson(json, Person.class);
@@ -54,6 +129,24 @@ public class Facade {
             em.close();
         }
         return person;
+    }
+
+    public RoleSchool addRole(String json) {
+        EntityManager em = emf.createEntityManager();
+        RoleSchool role = gson.fromJson(json, RoleSchool.class);
+
+        em.getTransaction().begin();
+        try {
+            em.persist(role);
+            em.getTransaction().commit();
+        }
+        catch (Exception e) {
+            em.getTransaction().rollback();
+        }
+        finally {
+            em.close();
+        }
+        return role;
     }
 
     public String getPerson(Long id) {
@@ -104,7 +197,7 @@ public class Facade {
         }
         return 0;
     }
-    
+
     public void persist(Object object) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -120,5 +213,18 @@ public class Facade {
             em.close();
         }
     }
+
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
 }

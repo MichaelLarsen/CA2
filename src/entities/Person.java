@@ -1,5 +1,6 @@
 package entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,7 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
- * Emil er dum
+ *
  * @author Michael
  */
 @Entity
@@ -36,15 +37,19 @@ public class Person implements Serializable {
     @OneToMany(mappedBy = "person")
     private Collection<RoleSchool> roleList = new ArrayList();
     
+    @Expose
     @Column(name = "first_name", length = 20)
     private String firstName;
     
+    @Expose
     @Column(name = "last_name", length = 30)
     private String lastName;
     
+    @Expose
     @Column(length = 10)
     private String phone;
     
+    @Expose
     @Column(length = 40)
     private String email;
 
@@ -129,7 +134,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Person[ id=" + id + " ]";
+        return "Person{" + "first_name=" + firstName + ", last_name=" + lastName + ", phone=" + phone + ", id=" + id + "}";
     }
 
 }

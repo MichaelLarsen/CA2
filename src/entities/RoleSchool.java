@@ -1,5 +1,6 @@
 package entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,10 +23,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ROLE_SCHOOL")
 @NamedQueries({
-    @NamedQuery(name = "RoleSchool.dropAll", query = "DELETE FROM RoleSchool r"),
+    @NamedQuery(name = "RoleSchool.dropAll", query = "DELETE FROM RoleSchool r")
 })
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class RoleSchool implements Serializable {
+public class RoleSchool implements Serializable {
     
     private static final long serialVersionUID = 1L;
     @Id
@@ -33,15 +34,17 @@ public abstract class RoleSchool implements Serializable {
     @Column(name="ROLE_ID")
     private Long id;
     
+    @Expose
     private String roleName;
     
-//    @JoinColumn(name = "FK_", referencedColumnName = "P_ID")
+    @JoinColumn(name = "FK_PERSON_ID", referencedColumnName = "P_ID")
     @ManyToOne (cascade=CascadeType.ALL)
     private Person person;
     
     public RoleSchool() {
     }
 
+    
     public RoleSchool(String roleName) {
         this.roleName = roleName;
     }

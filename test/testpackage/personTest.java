@@ -90,11 +90,32 @@ public class personTest {
         
         Person michael = new Person("Michael", "Larsen", "12345678", "studerende@cphbusiness.dk");
         RoleSchool student = new Student("3. semester datamatiker");
-        em.persist(student);
         student.setPerson(michael);
+//        Person michael2 = facade.addPerson(gson.toJson(michael));
+        em.persist(student);
+        
+        
+        
+        
+//        RoleSchool student2 = facade.addRole(gson.toJson(student));
+//        System.out.println(michael2);
+//        System.out.println(student2);
+//        
+//        
+//        student2.setPerson(michael2);
+//        
+//        System.out.println(michael2);
+        
+//        em.flush();
+        
+//        System.out.println(michael.getId());
         
 //        em.flush();
         em.getTransaction().commit();
         em.close();
+        
+        
+        
+        
     }
 }
