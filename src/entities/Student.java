@@ -31,7 +31,8 @@ public class Student extends RoleSchool {
 
     @Override
     public String toString() {
-        return "I am a student";
+        return "{\"rolename\":" + "\"Student\"" + "\"semester\":" + "\"" + semester + "\"}";
     }
+    
     
 }

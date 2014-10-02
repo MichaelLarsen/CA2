@@ -1,12 +1,17 @@
 $(document).ready(function () {
-    alert("READY");
-    console.log("Started!");
+//    alert("READY");
+//    console.log("Started!");
+
+
     getAllPersons();
-    initPersons();
+    getTargetPersonId();
+    addNewPerson();
+    clearAddPersonDetails();
+    deletePerson();
+    initRoles();
 });
 
 function getAllPersons() {
-    console.log("Inde i getAllPersons!");
     $.ajax({
         url: "../Person",
         type: "GET",
@@ -23,17 +28,17 @@ function getAllPersons() {
     });
 }
 
-function initPersons() {
+function getTargetPersonId() {
     $("#persons").click(function (e) {
         var id = e.target.id;
         if (isNaN(id)) {
             return;
         }
-        updateDetails(id);
+        getPerson(id);
     });
 }
 
-function updateDetails(id) {
+function getPerson(id) {
     $.ajax({
         url: "../Person/" + id,
         type: "GET",
@@ -46,17 +51,173 @@ function updateDetails(id) {
         $("#firstname").val(person.firstName);
         $("#lastname").val(person.lastName);
         $("#phone").val(person.phone);
+        $("#email").val(person.email);
+
+        var roleString = JSON.stringify(person.roles);
+        var roleStringArray = roleString.split("\"", 9999);
+
+        var allRolesString = "";
+        var roleDescriptionStr = "";
+
+        for (var i = 0; i < roleStringArray.length; i++) {
+            if (roleStringArray[i] === "AssistantTeacher") {
+                allRolesString += roleStringArray[i] + ", ";
+            }
+            if (roleStringArray[i] === "Student" || roleStringArray[i] === "Teacher") {
+                allRolesString += roleStringArray[i] + ", ";
+                roleDescriptionStr += roleStringArray[i - 4] + ", ";
+            }
+        }
+        $("#role").val(allRolesString);
+        $("#roleDescription").val(roleDescriptionStr);
+
+//        roleStringArray.forEach(function (newString) {
+//            console.log(newString);
+//            if (newString === "Student" || newString === "Teacher" || newString === "AssistentTeacher") {
+//                allRolesString += newString + " ";
+//                roleDescriptionStr += roleStringArray[3] + " ";
+//            }
+//            for (var i = 0; i < roleStringArray.length; i++) {
+//                
+//            }
+//            if (roleStringArray[i] ===  ) {
+//                
+//            }
+//        });
+
+
+
+
+//        console.log(JSON.stringify(person.roles));
+//
+//        var o = person.roles;
+//        console.log("ArrayA: " + o);
+//        var a = Array.prototype.slice.call(o);
+//
+//        console.log("ArrayB: " + a);
+//
+//        console.log("ArrayC: " + JSON.stringify(a));
+//        console.log("Stringify: " + JSON.stringify(person.roles[0]));
+//
+//
+//        var role = JSON.stringify(o[0]);;
+//        role.roleName;
+
+//        if (roleType === "Student") {
+//            role = JSON.stringify(o[0]);
+//        }
+//        if (roleType === "Teacher") {
+//            role = JSON.stringify(o[0])};
+//        }
+//        if (roleType === "AssistantTeacher") {
+//            role = JSON.stringify(o[0]);
+//        }
+
+
+
+
+
+
+
+
+
     });
 }
 
-function addNewPerson(){
-    $.ajax({
-        url: "../Person",
-        type: "POST",
-        dataType: 'json',
-        error: function(jqXHR, textStatus, erroThrown){
-            alert(textStatus);
+function addNewPerson() {
+    $("#addNewPersonButton").click(function () {
+        var newPerson = {"firstName": $("#newFirstname").val(), "lastName": $("#newLastname").val(), "phone": $("#newPhone").val(), "email": $("#newEmail").val()};
+        $.ajax({
+            url: "../Person",
+            data: JSON.stringify(newPerson),
+            type: "POST",
+            dataType: 'json',
+            error: function (jqXHR, textStatus, erroThrown) {
+                alert(textStatus);
+            }
+        }).done(function () {
+            getAllPersons();
+            clearAddPersonDetails();
+        });
+    });
+}
+
+function clearAddPersonDetails() {
+    $("#newFirstname").val("");
+    $("#newLastname").val("");
+    $("#newPhone").val("");
+    $("#newEmail").val("");
+}
+
+function deletePerson() {
+    $("#persons").click(function (e) {
+        var id = e.target.id;
+        if (isNaN(id)) {
+            return;
         }
-        
+        $("#deletePersonButton").click(function () {
+            $.ajax({
+                url: "../Person/" + id,
+                type: "DELETE",
+                dataType: 'json',
+                error: function (jqXHR, textStatus, erroThrown) {
+                    alert(textStatus);
+                }
+            }).done(function () {
+                getAllPersons();
+            });
+        });
+    });
+}
+
+function initRoles() {
+
+
+//    var roleStudent = {};
+//    var roleTeacher = {};
+//    var roleAssistantTeacher = {};
+
+    var options = "<option id=Student>Student</option>"
+            + "<option id=Teacher>Teacher</option>"
+            + "<option id=AssistantTeacher>Assistant Teacher</option>";
+    $("#roles").html(options);
+
+//    $("#newFirstname").val("");
+//    $("#newLastname").val("");
+//    $("#newPhone").val("");
+//    $("#newEmail").val("");
+}
+
+//document.getElementById()
+
+function addRole() {
+    $("#roles").click(function (e) {
+        var roleType = e.target.id;
+        if (isNaN(roleType)) {
+            return;
+        }
+        $("#addRoleButton").click(function () {
+            var role;
+            if (roleType === "Student") {
+                role = {"rolename": +roleType, "semester": $("#roleInput").val()};
+            }
+            if (roleType === "Teacher") {
+                role = {"rolename": +roleType, "degree": $("#roleInput").val()};
+            }
+            if (roleType === "AssistantTeacher") {
+                role = {"rolename": +roleType};
+            }
+            $.ajax({
+                url: "../Role",
+                data: JSON.stringify(role),
+                type: "POST",
+                dataType: 'json',
+                error: function (jqXHR, textStatus, erroThrown) {
+                    alert(textStatus);
+                }
+            }).done(function () {
+                getAllPersons();
+            });
+        });
     });
 }

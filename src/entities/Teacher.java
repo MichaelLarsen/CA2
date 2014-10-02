@@ -17,6 +17,7 @@ public class Teacher extends RoleSchool {
     }
 
     public Teacher(String degree) {
+        super("Teacher");
         this.degree = degree;
     }
 
@@ -31,7 +32,7 @@ public class Teacher extends RoleSchool {
 
     @Override
     public String toString() {
-        return "I am a teacher";
+        return "{\"rolename\":" + "\"Teacher\"" + "\"Degree\":" + "\"" + degree + "\"}";
     }
     
 }

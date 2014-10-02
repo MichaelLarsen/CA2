@@ -2,8 +2,11 @@ package facades;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import entities.AssistantTeacher;
 import entities.Person;
 import entities.RoleSchool;
+import entities.Student;
+import entities.Teacher;
 import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -93,7 +96,17 @@ public class Facade implements FacadeInterface {
     @Override
     public RoleSchool addRoleFromGSON(String json, long id) {
         EntityManager em = emf.createEntityManager();
+        
         RoleSchool role = gson.fromJson(json, RoleSchool.class);
+        if (role.getRoleName().equals("Student")) {
+            role = gson.fromJson(json, Student.class);
+        }
+        if (role.getRoleName().equals("Teacher")) {
+            role = gson.fromJson(json, Teacher.class);
+        }
+        if (role.getRoleName().equals("AssistantTeacher")) {
+            role = gson.fromJson(json, AssistantTeacher.class);
+        }
         Person person = null;
 
         em.getTransaction().begin();

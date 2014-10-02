@@ -35,17 +35,15 @@ class PersonHandler implements HttpHandler {
     public void handle(HttpExchange he) throws IOException {
         String response = "";
         int status = 200;
-        
+
 //        String url = "http://localhost:8080" + he.getRequestURI().toString();
 //        System.out.println("address: " + url);
 //        URL obj = new URL(url);
 //        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 //        con.setRequestMethod("POST");
-        
         String method = he.getRequestMethod().toUpperCase();
 //        String method = "POST";
         System.out.println("Method: " + method);
-
 
         switch (method) {
             case "GET":
@@ -107,21 +105,17 @@ class PersonHandler implements HttpHandler {
                     if (lastIndex > 0) {  //person/id
                         int id = Integer.parseInt(path.substring(lastIndex + 1));
                         Person personDeleted = facade.delete(id);
-                        response = new Gson().toJson(personDeleted);
+                        response = gson.toJson(personDeleted);
                     }
                     else {
                         status = 400;
                         response = "<h1>Bad Request</h1>No id supplied with request";
                     }
                 }
-                catch (Exception e) {
+                catch (NumberFormatException e) {
                     status = 404;
-                    response = e.getMessage();
+                    response = "Id is not a number";
                 }
-//                    catch (NumberFormatException nfe) {
-//                        response = "Id is not a number";
-//                        status = 404;
-//                    }
                 break;
         }
         he.getResponseHeaders().add("Content-Type", "application/json");

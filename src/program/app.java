@@ -48,7 +48,7 @@ public class app {
         System.out.println("------------------------");
         System.out.println(facade.addRoleFromGSON(gson.toJson(student), 1));
         System.out.println("------------------------");
-        System.out.println(facade.delete(1));
+        System.out.println(facade.delete(2));
         System.out.println("------------------------");
         System.out.println(facade.getPersonsAsJSON());
     }
