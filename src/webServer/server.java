@@ -20,7 +20,7 @@ import java.net.InetSocketAddress;
  */
 public class server {
     
-    private static int port = 80;
+    private static int port = 8080;
     private static String ip = "127.0.0.1";
     private static final Gson gson = new Gson();
     /**
@@ -47,7 +47,8 @@ public class server {
         
         HttpServer server = HttpServer.create(new InetSocketAddress(ip, port), 0);
         server.createContext("/", new WelcomeHandler());
-        server.createContext("/person", new PersonHandler());
+        server.createContext("/Person", new PersonHandler());
+        server.createContext("/Role", new RoleHandler());
 //        server.createContext("/file", new FileHandler());
 //        server.createContext("/weather", new WeatherService());
         server.setExecutor(null); // Use the default executor
