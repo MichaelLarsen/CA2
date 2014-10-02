@@ -41,16 +41,14 @@ public class server {
         facade.addPersonFromGSON(gson.toJson(michael));
         Person emiiiil = new Person("Emiiil", "Fra løndeberg", "12345678", "studerende@cphbusiness.dk");
         facade.addPersonFromGSON(gson.toJson(emiiiil));
+        Person elmo = new Person("Elmo", "Fra skogshoged", "888888", "studerende@iness.dk");
+        facade.addPersonFromGSON(gson.toJson(elmo));
         RoleSchool student = new Student("3. semester datamatiker");
-        
-        
         
         HttpServer server = HttpServer.create(new InetSocketAddress(ip, port), 0);
         server.createContext("/", new WelcomeHandler());
         server.createContext("/Person", new PersonHandler());
         server.createContext("/Role", new RoleHandler());
-//        server.createContext("/file", new FileHandler());
-//        server.createContext("/weather", new WeatherService());
         server.setExecutor(null); // Use the default executor
         server.start();
         System.out.println("Server started, listening on port: " + port);

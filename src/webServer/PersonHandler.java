@@ -42,8 +42,8 @@ class PersonHandler implements HttpHandler {
 //        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 //        con.setRequestMethod("POST");
         
-//        String method = he.getRequestMethod().toUpperCase();
-        String method = "POST";
+        String method = he.getRequestMethod().toUpperCase();
+//        String method = "POST";
         System.out.println("Method: " + method);
 
 
