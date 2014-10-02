@@ -1,8 +1,4 @@
 $(document).ready(function () {
-//    alert("READY");
-//    console.log("Started!");
-
-
     getAllPersons();
     getTargetPersonId();
     addNewPerson();
@@ -70,57 +66,6 @@ function getPerson(id) {
         }
         $("#role").val(allRolesString);
         $("#roleDescription").val(roleDescriptionStr);
-
-//        roleStringArray.forEach(function (newString) {
-//            console.log(newString);
-//            if (newString === "Student" || newString === "Teacher" || newString === "AssistentTeacher") {
-//                allRolesString += newString + " ";
-//                roleDescriptionStr += roleStringArray[3] + " ";
-//            }
-//            for (var i = 0; i < roleStringArray.length; i++) {
-//                
-//            }
-//            if (roleStringArray[i] ===  ) {
-//                
-//            }
-//        });
-
-
-
-
-//        console.log(JSON.stringify(person.roles));
-//
-//        var o = person.roles;
-//        console.log("ArrayA: " + o);
-//        var a = Array.prototype.slice.call(o);
-//
-//        console.log("ArrayB: " + a);
-//
-//        console.log("ArrayC: " + JSON.stringify(a));
-//        console.log("Stringify: " + JSON.stringify(person.roles[0]));
-//
-//
-//        var role = JSON.stringify(o[0]);;
-//        role.roleName;
-
-//        if (roleType === "Student") {
-//            role = JSON.stringify(o[0]);
-//        }
-//        if (roleType === "Teacher") {
-//            role = JSON.stringify(o[0])};
-//        }
-//        if (roleType === "AssistantTeacher") {
-//            role = JSON.stringify(o[0]);
-//        }
-
-
-
-
-
-
-
-
-
     });
 }
 
@@ -171,24 +116,11 @@ function deletePerson() {
 }
 
 function initRoles() {
-
-
-//    var roleStudent = {};
-//    var roleTeacher = {};
-//    var roleAssistantTeacher = {};
-
     var options = "<option id=Student>Student</option>"
             + "<option id=Teacher>Teacher</option>"
             + "<option id=AssistantTeacher>Assistant Teacher</option>";
     $("#roles").html(options);
-
-//    $("#newFirstname").val("");
-//    $("#newLastname").val("");
-//    $("#newPhone").val("");
-//    $("#newEmail").val("");
 }
-
-//document.getElementById()
 
 function addRole() {
     $("#roles").click(function (e) {
