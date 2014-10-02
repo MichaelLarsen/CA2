@@ -95,6 +95,7 @@ public class Facade implements FacadeInterface {
 
     @Override
     public RoleSchool addRoleFromGSON(String json, long id) {
+        System.out.println("INDE I ADDROLEFROMGSONMAJJJN!");
         EntityManager em = emf.createEntityManager();
         
         RoleSchool role = gson.fromJson(json, RoleSchool.class);

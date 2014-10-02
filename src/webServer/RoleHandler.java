@@ -39,21 +39,25 @@ class RoleHandler implements HttpHandler {
         InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
         BufferedReader br = new BufferedReader(isr);
         String jsonQuery = br.readLine();
-        System.out.println("JsonQuery: " + jsonQuery);
+        int lastIndex = jsonQuery.lastIndexOf("}");
+        String idStr = jsonQuery.substring(lastIndex + 1);
+        String jsonStr = jsonQuery.substring(0, lastIndex + 1);
+        int id = Integer.parseInt(idStr);
+        System.out.println("JsonQuery: " + jsonStr);
+        System.out.println("ID: " + id);
 
-        
-        if (jsonQuery.contains("<") || jsonQuery.contains(">")) {
-            //Simple anti-Martin check :-)
-            throw new IllegalArgumentException("Illegal characters in input");
-        }
-        RoleSchool role = facade.addRoleFromGSON(jsonQuery, 1);
+//        if (jsonQuery.contains("<") || jsonQuery.contains(">")) {
+//            //Simple anti-Martin check :-)
+//            throw new IllegalArgumentException("Illegal characters in input");
+//        }
+        RoleSchool role = facade.addRoleFromGSON(jsonStr, id);
         System.out.println("Role: " + role);
 //        if (person.getPhone().length() > 50 || person.getFirstName().length() > 50 || person.getLastName().length() > 70) {
 //            //Simple anti-Martin check :-)
 //            throw new IllegalArgumentException("Input contains to many characters");
 //        }
         response = gson.toJson(role);
-        
+
         System.out.println("Response: " + response);
 
         he.getResponseHeaders().add("Content-Type", "application/json");
@@ -63,4 +67,3 @@ class RoleHandler implements HttpHandler {
         }
     }
 }
-

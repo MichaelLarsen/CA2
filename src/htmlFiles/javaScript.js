@@ -123,13 +123,23 @@ function initRoles() {
     $("#roles").html(options);
 }
 
+//function getRoleId() {
+//    $("#roles").click(function (e) {
+//        var roleType = e.target.id;
+//        if (isNaN(id)) {
+//            return;
+//        }
+//        addRole(roleType);
+//    });
+//}
+
 function addRole() {
     var roleType;
     var pid;
     
     $("#persons").click(function (e) {
         pid = e.target.id;
-        console.log("id: " + pid);
+//        console.log("id: " + pid);
 
         if (isNaN(pid)) {
             return;
@@ -149,17 +159,24 @@ function addRole() {
         var role;
 
         console.log("WIE BIST EIN DIENER ADD ROLLEN");
+        
 
         if (roleType === "Student") {
-            role = {"rolename": +roleType, "semester": $("#roleInput").val()};
+            console.log("Student if sætning");
+            role = {"rolename": roleType, "semester": $("#roleInput").val()};
         }
         if (roleType === "Teacher") {
-            role = {"rolename": +roleType, "degree": $("#roleInput").val()};
+            console.log("Teacher if sætning");
+            role = {"rolename": roleType, "degree": $("#roleInput").val()};
         }
         if (roleType === "AssistantTeacher") {
-            role = {"rolename": +roleType};
+            console.log("AssistantTeacher if sætning");
+            role = {"rolename": roleType};
         }
+        console.log("ID: " + pid);
+        console.log("RoleType: " + roleType);
         console.log("Role:" + role);
+        console.log("RoleJSON:" + JSON.stringify(role));
 
         $.ajax({
             url: "../Role",
