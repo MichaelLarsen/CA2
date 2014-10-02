@@ -27,9 +27,9 @@ public class app {
 //        em.getTransaction().begin();
         
         Person michael = new Person("Michael", "Larsen", "12345678", "studerende@cphbusiness.dk");
-        facade.addPerson(gson.toJson(michael));
+        facade.addPersonFromGSON(gson.toJson(michael));
         Person emiiiil = new Person("Emiiil", "Fra løndeberg", "12345678", "studerende@cphbusiness.dk");
-        facade.addPerson(gson.toJson(emiiiil));
+        facade.addPersonFromGSON(gson.toJson(emiiiil));
         RoleSchool student = new Student("3. semester datamatiker");
 //        em.persist(michael);
 //        em.persist(emiiiil);
@@ -44,7 +44,7 @@ public class app {
         System.out.println("------------------------");
         System.out.println(facade.getPersonAsJSON(1));
         System.out.println("------------------------");
-        System.out.println(facade.addPerson(gson.toJson(new Person("Andreas", "Løvehjerte", "12345678", "studerende@cphbusiness.dk"))));
+        System.out.println(facade.addPersonFromGSON(gson.toJson(new Person("Andreas", "Løvehjerte", "12345678", "studerende@cphbusiness.dk"))));
         System.out.println("------------------------");
         System.out.println(facade.addRoleFromGSON(gson.toJson(student), 1));
         System.out.println("------------------------");
