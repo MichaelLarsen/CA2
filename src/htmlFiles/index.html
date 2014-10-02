@@ -15,21 +15,26 @@ and open the template in the editor.
     <body>
         <div id="all_persons">
             <select id="persons" size="2" style="min-width: 150px;height: 200px;"></select>
-            <h1 id="personLabel">HALLO</h1>
+            <button id="deletePersonButton">Delete person</button>
+            <select id="roles" size="2" style="min-width: 150px;height: 100px;"></select>
+            <label>Role description</label><input id="roleInput" type="text"/>
+            <button id="addRole">Add role</button>
         </div>
         <div id="details">
-            <div><label>id</label><input id="id" type="text"/></div>
-            <div><label>First Name</label><input id="firstname" type="text"/></div>
-            <div><label>Last Name</label><input id="lastname" type="text"/></div>
-            <div><label>Phone</label><input id="phone" type="text"/></div>
-            <div><label>Email</label><input id="email" type="text"/></div>
+            <div><label>id</label><input id="id" type="text" disabled="disabled"/></div>
+            <div><label>First Name</label><input id="firstname" type="text" disabled="disabled"/></div>
+            <div><label>Last Name</label><input id="lastname" type="text" disabled="disabled"/></div>
+            <div><label>Phone</label><input id="phone" type="tel" disabled="disabled"/></div>
+            <div><label>Email</label><input id="email" type="email" disabled="disabled"/></div>
+            <div><label>Role</label><input id="role" type="text" disabled="disabled"/></div>
+            <div><label>Role description</label><input id="roleDescription" type="text" disabled="disabled"/></div>
         </div>
         <hr>
         <div id="newDetails">
             <div><label>First Name</label><input id="newFirstname" type="text"/></div>
             <div><label>Last Name</label><input id="newLastname" type="text"/></div>
-            <div><label>Phone</label><input id="newPhone" type="text"/></div>
-            <div><label>Email</label><input id="newEmail" type="text"/></div>
+            <div><label>Phone</label><input id="newPhone" type="tel"/></div>
+            <div><label>Email</label><input id="newEmail" type="email"/></div>
             <button id="addNewPersonButton">Add person</button>
         </div>
     </body>

@@ -7,9 +7,11 @@ package webServer;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpServer;
+import entities.AssistantTeacher;
 import entities.Person;
 import entities.RoleSchool;
 import entities.Student;
+import entities.Teacher;
 import facades.Facade;
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -44,6 +46,12 @@ public class server {
         Person elmo = new Person("Elmo", "Fra skogshoged", "888888", "studerende@iness.dk");
         facade.addPersonFromGSON(gson.toJson(elmo));
         RoleSchool student = new Student("3. semester datamatiker");
+        RoleSchool teacher = new Teacher("MATEMATIK");
+        RoleSchool assTeacher = new AssistantTeacher();
+        facade.addRoleFromGSON(gson.toJson(student), 1);
+        facade.addRoleFromGSON(gson.toJson(assTeacher), 1);
+        facade.addRoleFromGSON(gson.toJson(teacher), 1);
+        
         
         HttpServer server = HttpServer.create(new InetSocketAddress(ip, port), 0);
         server.createContext("/", new WelcomeHandler());

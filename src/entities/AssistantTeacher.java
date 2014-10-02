@@ -10,6 +10,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ASSISTENT_TEACHER")
 public class AssistantTeacher extends RoleSchool {
+    
+    public AssistantTeacher() {
+        super("AssistantTeacher");
+    }
 
     @Override
     public String toString() {
