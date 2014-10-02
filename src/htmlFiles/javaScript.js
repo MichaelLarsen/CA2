@@ -2,6 +2,7 @@ $(document).ready(function () {
     alert("READY");
     console.log("Started!");
     getAllPersons();
+    initPersons();
 });
 
 function getAllPersons() {
@@ -19,13 +20,43 @@ function getAllPersons() {
             options += "<option id=" + person.id + ">" + person.firstName + ", " + person.lastName + "</option>";
         });
         $("#persons").html(options);
-        clearDetails();
     });
 }
 
-function clearDetails() {
-    $("#id").val("");
-    $("#fname").val("");
-    $("#lname").val("");
-    $("#phone").val("");
+function initPersons() {
+    $("#persons").click(function (e) {
+        var id = e.target.id;
+        if (isNaN(id)) {
+            return;
+        }
+        updateDetails(id);
+    });
+}
+
+function updateDetails(id) {
+    $.ajax({
+        url: "../Person/" + id,
+        type: "GET",
+        dataType: 'json',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.getResonseText + ": " + textStatus);
+        }
+    }).done(function (person) {
+        $("#id").val(person.id);
+        $("#firstname").val(person.firstName);
+        $("#lastname").val(person.lastName);
+        $("#phone").val(person.phone);
+    });
+}
+
+function addNewPerson(){
+    $.ajax({
+        url: "../Person",
+        type: "POST",
+        dataType: 'json',
+        error: function(jqXHR, textStatus, erroThrown){
+            alert(textStatus);
+        }
+        
+    });
 }

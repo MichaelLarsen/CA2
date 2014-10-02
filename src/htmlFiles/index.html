@@ -14,10 +14,23 @@ and open the template in the editor.
     </head>
     <body>
         <div id="all_persons">
-            <select id="persons" size="2" style="min-width: 150px;height: 200px;">
-            </select>
-            <button id="getAllButton">Get Persons</button>
+            <select id="persons" size="2" style="min-width: 150px;height: 200px;"></select>
             <h1 id="personLabel">HALLO</h1>
+        </div>
+        <div id="details">
+            <div><label>id</label><input id="id" type="text"/></div>
+            <div><label>First Name</label><input id="firstname" type="text"/></div>
+            <div><label>Last Name</label><input id="lastname" type="text"/></div>
+            <div><label>Phone</label><input id="phone" type="text"/></div>
+            <div><label>Email</label><input id="email" type="text"/></div>
+        </div>
+        <hr>
+        <div id="newDetails">
+            <div><label>First Name</label><input id="newFirstname" type="text"/></div>
+            <div><label>Last Name</label><input id="newLastname" type="text"/></div>
+            <div><label>Phone</label><input id="newPhone" type="text"/></div>
+            <div><label>Email</label><input id="newEmail" type="text"/></div>
+            <button id="addNewPersonButton">Add person</button>
         </div>
     </body>
 </html> 
