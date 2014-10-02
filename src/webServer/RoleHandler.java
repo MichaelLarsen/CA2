@@ -41,16 +41,12 @@ class RoleHandler implements HttpHandler {
         String jsonQuery = br.readLine();
         System.out.println("JsonQuery: " + jsonQuery);
 
-        RoleSchool teacher = new Teacher("Jeg har studeret matematik");
-        String teacherGson = gson.toJson(teacher);
-        System.out.println("TeacherGson: " + teacherGson);
-        
         
         if (jsonQuery.contains("<") || jsonQuery.contains(">")) {
             //Simple anti-Martin check :-)
             throw new IllegalArgumentException("Illegal characters in input");
         }
-        RoleSchool role = facade.addRoleFromGSON(teacherGson, 1);
+        RoleSchool role = facade.addRoleFromGSON(jsonQuery, 1);
         System.out.println("Role: " + role);
 //        if (person.getPhone().length() > 50 || person.getFirstName().length() > 50 || person.getLastName().length() > 70) {
 //            //Simple anti-Martin check :-)
@@ -67,20 +63,4 @@ class RoleHandler implements HttpHandler {
         }
     }
 }
-//    catch (IllegalArgumentException iae
-//
-//    
-//        ) {
-//                    status = 400;
-//        response = iae.getMessage();
-//    }
-//    catch (IOException e
-//
-//    
-//        ) {
-//                    status = 500;
-//        response = "Internal Server Problem";
-//    }
-
-//    }
 

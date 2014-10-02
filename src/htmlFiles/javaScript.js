@@ -5,6 +5,7 @@ $(document).ready(function () {
     clearAddPersonDetails();
     deletePerson();
     initRoles();
+    addRole();
 });
 
 function getAllPersons() {
@@ -123,33 +124,55 @@ function initRoles() {
 }
 
 function addRole() {
+    var roleType;
+    var pid;
+    
+    $("#persons").click(function (e) {
+        pid = e.target.id;
+        console.log("id: " + pid);
+
+        if (isNaN(pid)) {
+            return;
+        }
+    });
+    
     $("#roles").click(function (e) {
-        var roleType = e.target.id;
+        roleType = e.target.id;
+        console.log("RoleT: " + roleType);
+
         if (isNaN(roleType)) {
             return;
         }
-        $("#addRoleButton").click(function () {
-            var role;
-            if (roleType === "Student") {
-                role = {"rolename": +roleType, "semester": $("#roleInput").val()};
+    });
+
+    $("#addRoleButton").click(function () {
+        var role;
+
+        console.log("WIE BIST EIN DIENER ADD ROLLEN");
+
+        if (roleType === "Student") {
+            role = {"rolename": +roleType, "semester": $("#roleInput").val()};
+        }
+        if (roleType === "Teacher") {
+            role = {"rolename": +roleType, "degree": $("#roleInput").val()};
+        }
+        if (roleType === "AssistantTeacher") {
+            role = {"rolename": +roleType};
+        }
+        console.log("Role:" + role);
+
+        $.ajax({
+            url: "../Role",
+//            data: {roleJSON : JSON.stringify(role), personid : pid},
+            data: JSON.stringify(role) + pid,
+            type: "POST",
+            dataType: 'json',
+            error: function (jqXHR, textStatus, erroThrown) {
+                alert(textStatus);
             }
-            if (roleType === "Teacher") {
-                role = {"rolename": +roleType, "degree": $("#roleInput").val()};
-            }
-            if (roleType === "AssistantTeacher") {
-                role = {"rolename": +roleType};
-            }
-            $.ajax({
-                url: "../Role",
-                data: JSON.stringify(role),
-                type: "POST",
-                dataType: 'json',
-                error: function (jqXHR, textStatus, erroThrown) {
-                    alert(textStatus);
-                }
-            }).done(function () {
-                getAllPersons();
-            });
+        }).done(function () {
+            getAllPersons();
         });
     });
+
 }

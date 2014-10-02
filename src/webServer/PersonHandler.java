@@ -36,13 +36,8 @@ class PersonHandler implements HttpHandler {
         String response = "";
         int status = 200;
 
-//        String url = "http://localhost:8080" + he.getRequestURI().toString();
-//        System.out.println("address: " + url);
-//        URL obj = new URL(url);
-//        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-//        con.setRequestMethod("POST");
+
         String method = he.getRequestMethod().toUpperCase();
-//        String method = "POST";
         System.out.println("Method: " + method);
 
         switch (method) {
@@ -79,6 +74,7 @@ class PersonHandler implements HttpHandler {
                         //Simple anti-Martin check :-)
                         throw new IllegalArgumentException("Illegal characters in input");
                     }
+                    System.out.println("Jason! : " + jsonQuery);
                     Person person = facade.addPersonFromGSON(jsonQuery);
                     if (person.getPhone().length() > 50 || person.getFirstName().length() > 50 || person.getLastName().length() > 70) {
                         //Simple anti-Martin check :-)
