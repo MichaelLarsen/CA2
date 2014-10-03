@@ -1,6 +1,7 @@
 package webServer;
 
 import com.google.gson.Gson;
+import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import entities.AssistantTeacher;
 import entities.Person;
@@ -49,6 +50,7 @@ public class WebServer {
         
         HttpServer server = HttpServer.create(new InetSocketAddress(ip, port), 0);
         server.createContext("/", new WelcomeHandler());
+        server.createContext("/Pages/", new FileHandler());
         server.createContext("/Person", new PersonHandler());
         server.createContext("/Role", new RoleHandler());
         server.setExecutor(null); // Use the default executor

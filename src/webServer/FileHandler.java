@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package webServer;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -15,17 +10,17 @@ import java.io.OutputStream;
 
 /**
  *
- * @author Michael
+ * @author Michael, Sebastian, Emil og Andreas
  */
-class WelcomeHandler implements HttpHandler {
+class FileHandler implements HttpHandler {
+    
     private final String contentFolder = "public/";
-
-    public WelcomeHandler() {
-    }
 
     @Override
     public void handle(HttpExchange he) throws IOException {
-        File file = new File(contentFolder + "index.html");
+        String url = he.getRequestURI().toString();
+        String substring = url.substring(7);
+        File file = new File(contentFolder + substring);
         byte[] bytesToSend = new byte[(int) file.length()];
         BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
         bis.read(bytesToSend, 0, bytesToSend.length);
@@ -35,5 +30,5 @@ class WelcomeHandler implements HttpHandler {
             os.write(bytesToSend, 0, bytesToSend.length);
         }
     }
-    
+
 }
