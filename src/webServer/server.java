@@ -33,8 +33,8 @@ public class server {
     {
         if (args.length == 2)
         {
-            port = Integer.parseInt(args[0]);
-            ip = args[1];
+            ip = args[0];
+            port = Integer.parseInt(args[1]);
         }
         
         Facade facade = Facade.getFacade(true);
@@ -59,6 +59,8 @@ public class server {
         server.createContext("/Role", new RoleHandler());
         server.setExecutor(null); // Use the default executor
         server.start();
-        System.out.println("Server started, listening on port: " + port);
+        System.out.println("Started the server, listening on:");
+        System.out.println("port: " + port);
+        System.out.println("ip: " + ip);
     }
 }

@@ -19,7 +19,7 @@ import java.io.OutputStream;
  */
 class WelcomeHandler implements HttpHandler {
     
-    private String contentFolder = "src/htmlFiles/";
+    private final String contentFolder = "public/";
 
     @Override
     public void handle(HttpExchange he) throws IOException {
