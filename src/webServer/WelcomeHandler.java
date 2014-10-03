@@ -19,7 +19,6 @@ class WelcomeHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange he) throws IOException {
         String url = he.getRequestURI().toString();
-        System.out.println("URL: " + url);
         File file = new File(contentFolder + url);
         byte[] bytesToSend = new byte[(int) file.length()];
         BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));

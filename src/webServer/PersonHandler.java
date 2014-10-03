@@ -31,13 +31,11 @@ class PersonHandler implements HttpHandler {
 
 
         String method = he.getRequestMethod().toUpperCase();
-        System.out.println("Method: " + method);
 
         switch (method) {
             case "GET":
                 try {
                     String path = he.getRequestURI().getPath();
-                    System.out.println("path: " + path);
                     int lastIndex = path.lastIndexOf("/");
                     if (lastIndex > 0) {  //person/id
                         String idStr = path.substring(lastIndex + 1);
@@ -59,14 +57,12 @@ class PersonHandler implements HttpHandler {
                 break;
             case "POST":
                 try {
-                    System.out.println("POST nu");
                     InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
                     BufferedReader br = new BufferedReader(isr);
                     String jsonQuery = br.readLine();
                     if (jsonQuery.contains("<") || jsonQuery.contains(">")) {
                         throw new IllegalArgumentException("Illegal characters in input");
                     }
-                    System.out.println("Jason! : " + jsonQuery);
                     Person person = facade.addPersonFromGSON(jsonQuery);
                     if (person.getPhone().length() > 50 || person.getFirstName().length() > 50 || person.getLastName().length() > 70) {
                         throw new IllegalArgumentException("Input contains to many characters");
@@ -86,7 +82,6 @@ class PersonHandler implements HttpHandler {
                 break;
             case "DELETE":
                 try {
-                    System.out.println("DELETE nu");
                     String path = he.getRequestURI().getPath();
                     int lastIndex = path.lastIndexOf("/");
                     if (lastIndex > 0) {  //person/id
