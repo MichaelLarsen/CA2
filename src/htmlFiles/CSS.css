@@ -1,0 +1,80 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 03-10-2014, 15:01:00
+    Author     : Michael
+*/
+.info {
+    display: Inline-block;
+    margin-left: 50px;
+}
+
+h1 {
+    font-family: cursive;
+    text-align: center;
+}
+h2 {
+    font-family: Verdana;
+    font-size: 16px;
+}
+
+
+.Input {
+
+    margin-left: 50px;
+    margin-right: 150px;
+    
+}
+select {
+   min-width: 165px;
+   min-height: 200px;
+   margin-left: 50px;
+   margin-top: 20px;
+}
+
+#id {
+    margin-left: 118px;
+    margin-top: 20px;
+}
+.firstname {
+    margin-left: 60px;
+}
+.Lastname {
+    margin-left: 62px;
+}
+.Phone {
+    margin-left: 92px;
+}
+.Email {
+    margin-left: 93px;
+}
+#role {
+    margin-left: 101px;
+}
+#roleDescription {
+    margin-left: 26px;
+}
+#deletePersonButton
+{
+    margin-left: 30px;
+}
+#addRoleButton
+{
+    margin-left: 135px;
+}
+.roled{
+    margin-left: 220px;
+}
+#addNewPersonButton
+{
+    margin-left: 136px;
+}
+p {
+    border: 1px solid black;
+}
+a {
+    float: right;
+}

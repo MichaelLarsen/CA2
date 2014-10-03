@@ -8,8 +8,8 @@
     <class>entities.Student</class>
     <class>entities.AssistantTeacher</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/testDB"/>
-      <!--<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@datdb.cphbusiness.dk:1521:dat"/>-->
+      <!--<property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/testDB"/>-->
+      <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@datdb.cphbusiness.dk:1521:dat"/>
       <property name="javax.persistence.jdbc.password" value="SEM2_TEST_GR04"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
       <property name="javax.persistence.jdbc.user" value="SEM2_TEST_GR04"/>

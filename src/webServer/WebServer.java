@@ -37,6 +37,8 @@ public class WebServer {
         
         Person michael = new Person("Michael", "Larsen", "12345678", "studerende@cphbusiness.dk");
         facade.addPersonFromGSON(gson.toJson(michael));
+        Person Seb = new Person("Seb", "Seb", "12345678", "studerende@cphbusiness.dk");
+        facade.addPersonFromGSON(gson.toJson(Seb));
         Person emiiiil = new Person("Emiiil", "Fra løndeberg", "12345678", "studerende@cphbusiness.dk");
         facade.addPersonFromGSON(gson.toJson(emiiiil));
         Person elmo = new Person("Elmo", "Fra skogshoged", "888888", "studerende@iness.dk");
