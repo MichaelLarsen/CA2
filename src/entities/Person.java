@@ -6,21 +6,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
  *
- * @author Michael
+ * @author Michael, Sebastian, Emil og Andreas
  */
 @Entity
 @NamedQueries({
@@ -124,7 +120,6 @@ public class Person implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Person)) {
             return false;
         }

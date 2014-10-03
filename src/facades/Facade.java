@@ -15,12 +15,11 @@ import javax.persistence.Query;
 
 /**
  *
- * @author Michael
+ * @author Michael, Sebastian, Emil og Andreas
  */
 public class Facade implements FacadeInterface {
 
     private final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-//    private final Gson gson = new Gson();
     private static Facade instance = new Facade();
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("KA_InheritancePU");
 
@@ -52,9 +51,9 @@ public class Facade implements FacadeInterface {
         EntityManager em = emf.createEntityManager();
         Person person = null;
         try {
-            person = em.getReference(Person.class, id); // prøv med FIND HVIS PROBLEMER
+            person = em.getReference(Person.class, id);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         } finally {
             em.close();
         }
@@ -83,30 +82,25 @@ public class Facade implements FacadeInterface {
         EntityManager em = emf.createEntityManager();
         RoleSchool role = gson.fromJson(json, RoleSchool.class);
         if (role.getRoleName().equals("Student")) {
-            System.out.println("ROLESTUDENT: " + role);
             role = gson.fromJson(json, Student.class);
         }
         if (role.getRoleName().equals("Teacher")) {
-            System.out.println("ROLETEACHER: " + role);
             role = gson.fromJson(json, Teacher.class);
         }
         if (role.getRoleName().equals("AssistantTeacher")) {
-            System.out.println("ROLEASSISTANTT: " + role);
             role = gson.fromJson(json, AssistantTeacher.class);
         }
-        System.out.println("ROLESLUT: " + role);
         Person person = null;
 
         em.getTransaction().begin();
         try {
-            System.out.println("TRY");
-            person = em.find(Person.class, id); // prøv med FIND HVIS PROBLEMER
-            System.out.println("Person: " + person);
+            person = em.find(Person.class, id);
             role.setPerson(person);
             person.addRole(role);
             em.persist(role);
             em.getTransaction().commit();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             em.getTransaction().rollback();
         } finally {
             em.close();
@@ -125,6 +119,7 @@ public class Facade implements FacadeInterface {
             em.remove(person);
             em.getTransaction().commit();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             em.getTransaction().rollback();
             return null;
         } finally {
@@ -144,7 +139,6 @@ public class Facade implements FacadeInterface {
             em.getTransaction().commit();
             return rowsAffected;
         } catch (Exception e) {
-            e.printStackTrace();
             em.getTransaction().rollback();
         } finally {
             em.close();

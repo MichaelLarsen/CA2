@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package webServer;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -15,7 +10,7 @@ import java.io.OutputStream;
 
 /**
  *
- * @author Seb
+ * @author Michael, Sebastian, Emil og Andreas
  */
 class WelcomeHandler implements HttpHandler {
     

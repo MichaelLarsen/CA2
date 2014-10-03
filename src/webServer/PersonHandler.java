@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package webServer;
 
 import com.google.gson.Gson;
@@ -14,17 +9,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 /**
  *
- * @author Seb
+ * @author Michael, Sebastian, Emil og Andreas
  */
 class PersonHandler implements HttpHandler {
 
-    private Facade facade;
-    private Gson gson;
+    private final Facade facade;
+    private final Gson gson;
 
     public PersonHandler() {
         facade = Facade.getFacade(true);
@@ -71,13 +64,11 @@ class PersonHandler implements HttpHandler {
                     BufferedReader br = new BufferedReader(isr);
                     String jsonQuery = br.readLine();
                     if (jsonQuery.contains("<") || jsonQuery.contains(">")) {
-                        //Simple anti-Martin check :-)
                         throw new IllegalArgumentException("Illegal characters in input");
                     }
                     System.out.println("Jason! : " + jsonQuery);
                     Person person = facade.addPersonFromGSON(jsonQuery);
                     if (person.getPhone().length() > 50 || person.getFirstName().length() > 50 || person.getLastName().length() > 70) {
-                        //Simple anti-Martin check :-)
                         throw new IllegalArgumentException("Input contains to many characters");
                     }
                     response = gson.toJson(person);

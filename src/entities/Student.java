@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 
 /**
  *
- * @author Michael
+ * @author Michael, Sebastian, Emil og Andreas
  */
 @Entity
 public class Student extends RoleSchool {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package testpackage;
 
 import com.google.gson.Gson;
@@ -12,10 +7,6 @@ import entities.Student;
 import facades.Facade;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -24,7 +15,7 @@ import org.junit.Test;
 
 /**
  *
- * @author Michael
+ * @author Michael, Sebastian, Emil og Andreas
  */
 public class TestFacade {
 
