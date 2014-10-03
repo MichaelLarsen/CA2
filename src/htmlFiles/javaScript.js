@@ -123,16 +123,6 @@ function initRoles() {
     $("#roles").html(options);
 }
 
-//function getRoleId() {
-//    $("#roles").click(function (e) {
-//        var roleType = e.target.id;
-//        if (isNaN(id)) {
-//            return;
-//        }
-//        addRole(roleType);
-//    });
-//}
-
 function addRole() {
     var roleType;
     var pid;
@@ -148,7 +138,7 @@ function addRole() {
     
     $("#roles").click(function (e) {
         roleType = e.target.id;
-        console.log("RoleT: " + roleType);
+//        console.log("RoleT: " + roleType);
 
         if (isNaN(roleType)) {
             return;
@@ -158,25 +148,25 @@ function addRole() {
     $("#addRoleButton").click(function () {
         var role;
 
-        console.log("WIE BIST EIN DIENER ADD ROLLEN");
+//        console.log("WIE BIST EIN DIENER ADD ROLLEN");
         
 
         if (roleType === "Student") {
-            console.log("Student if sætning");
+//            console.log("Student if sætning");
             role = {"semester": $("#roleInput").val(), "roleName": roleType};
         }
         if (roleType === "Teacher") {
-            console.log("Teacher if sætning");
+//            console.log("Teacher if sætning");
             role = {"degree": $("#roleInput").val(), "roleName": roleType};
         }
         if (roleType === "AssistantTeacher") {
-            console.log("AssistantTeacher if sætning");
+//            console.log("AssistantTeacher if sætning");
             role = {"roleName": roleType};
         }
-        console.log("ID: " + pid);
-        console.log("RoleType: " + roleType);
-        console.log("Role:" + role);
-        console.log("RoleJSON:" + JSON.stringify(role));
+//        console.log("ID: " + pid);
+//        console.log("RoleType: " + roleType);
+//        console.log("Role:" + role);
+//        console.log("RoleJSON:" + JSON.stringify(role));
 
         $.ajax({
             url: "../Role",
@@ -187,7 +177,8 @@ function addRole() {
             error: function (jqXHR, textStatus, erroThrown) {
                 alert(textStatus);
             }
-        }).done(function () {
+        }).done(function (roleSchool) {
+//            console.log(roleSchool);
             getAllPersons();
         });
     });

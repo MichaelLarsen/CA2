@@ -2,10 +2,6 @@ package facades;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import entities.AssistantTeacher;
 import entities.Person;
 import entities.RoleSchool;
@@ -93,23 +89,8 @@ public class Facade implements FacadeInterface {
 
     @Override
     public RoleSchool addRoleFromGSON(String json, long id) {
-        JsonElement jelement = new JsonParser().parse(json);
-//        System.out.println("element" + jelement);
-//        JsonObject jobject = jelement.getAsJsonObject();
-//        System.out.println("object:" + jobject);
-//        String result = jobject.get("roleName").toString();
-//        System.out.println("RESULT: " + result);
-//        System.out.println("");
         EntityManager em = emf.createEntityManager();
-//        int lastIndex = json.lastIndexOf("}");
-//        String strArray[] = json.split("\"");
-//        String roleName = strArray[3];
-
-        System.out.println("json!!!!!: " + json);
-//        System.out.println("RoleName: " + roleName);
         RoleSchool role = gson.fromJson(json, RoleSchool.class);
-        System.out.println("role: " + role);
-        System.out.println("RoleNAME:" + role.getRoleName());
         if (role.getRoleName().equals("Student")) {
             System.out.println("ROLESTUDENT: " + role);
             role = gson.fromJson(json, Student.class);
@@ -127,7 +108,9 @@ public class Facade implements FacadeInterface {
 
         em.getTransaction().begin();
         try {
-            person = em.getReference(Person.class, id); // prøv med FIND HVIS PROBLEMER
+            System.out.println("TRY");
+            person = em.find(Person.class, id); // prøv med FIND HVIS PROBLEMER
+            System.out.println("Person: " + person);
             role.setPerson(person);
             em.persist(role);
             em.getTransaction().commit();

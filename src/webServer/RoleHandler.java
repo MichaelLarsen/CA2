@@ -35,7 +35,6 @@ class RoleHandler implements HttpHandler {
 
         String response = "";
 
-        System.out.println("requestbody: " + he.getRequestBody().toString());
         InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
         BufferedReader br = new BufferedReader(isr);
         String jsonQuery = br.readLine();
@@ -43,8 +42,6 @@ class RoleHandler implements HttpHandler {
         String idStr = jsonQuery.substring(lastIndex + 1);
         String jsonStr = jsonQuery.substring(0, lastIndex + 1);
         int id = Integer.parseInt(idStr);
-        System.out.println("JsonQuery: " + jsonStr);
-        System.out.println("ID: " + id);
 
 //        if (jsonQuery.contains("<") || jsonQuery.contains(">")) {
 //            //Simple anti-Martin check :-)
@@ -56,7 +53,8 @@ class RoleHandler implements HttpHandler {
 //            //Simple anti-Martin check :-)
 //            throw new IllegalArgumentException("Input contains to many characters");
 //        }
-        response = gson.toJson(role);
+        response = role.toString();
+//        System.out.println("RoleJSON" + gson.toJson(role));
 
         System.out.println("Response: " + response);
 
