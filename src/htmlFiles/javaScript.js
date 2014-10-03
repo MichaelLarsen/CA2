@@ -129,8 +129,6 @@ function addRole() {
     
     $("#persons").click(function (e) {
         pid = e.target.id;
-//        console.log("id: " + pid);
-
         if (isNaN(pid)) {
             return;
         }
@@ -138,8 +136,6 @@ function addRole() {
     
     $("#roles").click(function (e) {
         roleType = e.target.id;
-//        console.log("RoleT: " + roleType);
-
         if (isNaN(roleType)) {
             return;
         }
@@ -148,29 +144,17 @@ function addRole() {
     $("#addRoleButton").click(function () {
         var role;
 
-//        console.log("WIE BIST EIN DIENER ADD ROLLEN");
-        
-
         if (roleType === "Student") {
-//            console.log("Student if sætning");
             role = {"semester": $("#roleInput").val(), "roleName": roleType};
         }
         if (roleType === "Teacher") {
-//            console.log("Teacher if sætning");
             role = {"degree": $("#roleInput").val(), "roleName": roleType};
         }
         if (roleType === "AssistantTeacher") {
-//            console.log("AssistantTeacher if sætning");
             role = {"roleName": roleType};
         }
-//        console.log("ID: " + pid);
-//        console.log("RoleType: " + roleType);
-//        console.log("Role:" + role);
-//        console.log("RoleJSON:" + JSON.stringify(role));
-
         $.ajax({
             url: "../Role",
-//            data: {roleJSON : JSON.stringify(role), personid : pid},
             data: JSON.stringify(role) + pid,
             type: "POST",
             dataType: 'json',
@@ -178,7 +162,8 @@ function addRole() {
                 alert(textStatus);
             }
         }).done(function (roleSchool) {
-//            console.log(roleSchool);
+            getPerson(pid);
+            $("#rolenInput").val("");
             getAllPersons();
         });
     });

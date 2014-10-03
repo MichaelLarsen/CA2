@@ -51,6 +51,7 @@ public class server {
         facade.addRoleFromGSON(gson.toJson(student), 1);
         facade.addRoleFromGSON(gson.toJson(assTeacher), 1);
         facade.addRoleFromGSON(gson.toJson(teacher), 1);
+        System.out.println("PERSONSFSAFDFAS: " + michael.getRoles());
         
         
         HttpServer server = HttpServer.create(new InetSocketAddress(ip, port), 0);
