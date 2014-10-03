@@ -26,7 +26,7 @@ import org.junit.Test;
  *
  * @author Michael
  */
-public class personTest {
+public class TestFacade {
 
     Facade facade;
     Gson gson = new Gson();
