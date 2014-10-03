@@ -17,7 +17,7 @@ public class AssistantTeacher extends RoleSchool {
 
     @Override
     public String toString() {
-        return "I am an assistant teacher";
+        return "{\"roleName\":" + "\"AssistantTeacher\"}";
     }
     
 }

@@ -32,7 +32,7 @@ public class Teacher extends RoleSchool {
 
     @Override
     public String toString() {
-        return "{\"rolename\":" + "\"Teacher\"" + "\"Degree\":" + "\"" + degree + "\"}";
+        return "{\"roleName\":" + "\"Teacher\"" + ","  + "\"Degree\":" + "\"" + degree + "\"}";
     }
     
 }

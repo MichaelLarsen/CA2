@@ -2,6 +2,10 @@ package facades;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import entities.AssistantTeacher;
 import entities.Person;
 import entities.RoleSchool;
@@ -42,8 +46,7 @@ public class Facade implements FacadeInterface {
         }
         return instance;
     }
-    
-    
+
     @Override
     public String getPersonsAsJSON() {
         EntityManager em = emf.createEntityManager();
@@ -52,23 +55,20 @@ public class Facade implements FacadeInterface {
             Collection<Person> personList = query.getResultList();
             String personListJson = gson.toJson(personList);
             return personListJson;
-        }
-        finally {
+        } finally {
             em.close();
         }
     }
-    
+
     @Override
     public String getPersonAsJSON(long id) {
         EntityManager em = emf.createEntityManager();
         Person person = null;
         try {
             person = em.getReference(Person.class, id); // prøv med FIND HVIS PROBLEMER
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             em.close();
         }
         return gson.toJson(person);
@@ -83,11 +83,9 @@ public class Facade implements FacadeInterface {
         try {
             em.persist(person);
             em.getTransaction().commit();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             em.getTransaction().rollback();
-        }
-        finally {
+        } finally {
             em.close();
         }
         return person;
@@ -95,19 +93,36 @@ public class Facade implements FacadeInterface {
 
     @Override
     public RoleSchool addRoleFromGSON(String json, long id) {
-        System.out.println("INDE I ADDROLEFROMGSONMAJJJN!");
+        JsonElement jelement = new JsonParser().parse(json);
+//        System.out.println("element" + jelement);
+//        JsonObject jobject = jelement.getAsJsonObject();
+//        System.out.println("object:" + jobject);
+//        String result = jobject.get("roleName").toString();
+//        System.out.println("RESULT: " + result);
+//        System.out.println("");
         EntityManager em = emf.createEntityManager();
-        
+//        int lastIndex = json.lastIndexOf("}");
+//        String strArray[] = json.split("\"");
+//        String roleName = strArray[3];
+
+        System.out.println("json!!!!!: " + json);
+//        System.out.println("RoleName: " + roleName);
         RoleSchool role = gson.fromJson(json, RoleSchool.class);
+        System.out.println("role: " + role);
+        System.out.println("RoleNAME:" + role.getRoleName());
         if (role.getRoleName().equals("Student")) {
+            System.out.println("ROLESTUDENT: " + role);
             role = gson.fromJson(json, Student.class);
         }
         if (role.getRoleName().equals("Teacher")) {
+            System.out.println("ROLETEACHER: " + role);
             role = gson.fromJson(json, Teacher.class);
         }
         if (role.getRoleName().equals("AssistantTeacher")) {
+            System.out.println("ROLEASSISTANTT: " + role);
             role = gson.fromJson(json, AssistantTeacher.class);
         }
+        System.out.println("ROLESLUT: " + role);
         Person person = null;
 
         em.getTransaction().begin();
@@ -116,11 +131,9 @@ public class Facade implements FacadeInterface {
             role.setPerson(person);
             em.persist(role);
             em.getTransaction().commit();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             em.getTransaction().rollback();
-        }
-        finally {
+        } finally {
             em.close();
         }
         return role;
@@ -136,48 +149,15 @@ public class Facade implements FacadeInterface {
             person = em.getReference(Person.class, id);
             em.remove(person);
             em.getTransaction().commit();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             em.getTransaction().rollback();
             return null;
-        }
-        finally {
+        } finally {
             em.close();
         }
         return person;
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 //    public Person addPerson(String json) {
 //        EntityManager em = emf.createEntityManager();
 //        Person person = gson.fromJson(json, Person.class);

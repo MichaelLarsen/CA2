@@ -97,7 +97,7 @@ public class RoleSchool implements Serializable {
 
     @Override
     public String toString() {
-        return "{\"rolename\":" + "\"" + roleName + "\"" + "}";
+        return "{\"roleName\":" + "\"" + roleName + "\"" + "}";
     }
     
 }

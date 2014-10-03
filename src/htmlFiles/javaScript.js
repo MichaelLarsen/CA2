@@ -163,15 +163,15 @@ function addRole() {
 
         if (roleType === "Student") {
             console.log("Student if sætning");
-            role = {"rolename": roleType, "semester": $("#roleInput").val()};
+            role = {"semester": $("#roleInput").val(), "roleName": roleType};
         }
         if (roleType === "Teacher") {
             console.log("Teacher if sætning");
-            role = {"rolename": roleType, "degree": $("#roleInput").val()};
+            role = {"degree": $("#roleInput").val(), "roleName": roleType};
         }
         if (roleType === "AssistantTeacher") {
             console.log("AssistantTeacher if sætning");
-            role = {"rolename": roleType};
+            role = {"roleName": roleType};
         }
         console.log("ID: " + pid);
         console.log("RoleType: " + roleType);

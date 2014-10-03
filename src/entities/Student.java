@@ -9,7 +9,7 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Student extends RoleSchool {
-    
+
     @Expose
     private String semester;
 
@@ -31,8 +31,7 @@ public class Student extends RoleSchool {
 
     @Override
     public String toString() {
-        return "{\"rolename\":" + "\"Student\"" + "\"semester\":" + "\"" + semester + "\"}";
+        return "{\"roleName\":" + "\"Student\"" + "," + "\"semester\":" + "\"" + semester + "\"}";
     }
-    
-    
+
 }
