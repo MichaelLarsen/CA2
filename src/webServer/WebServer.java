@@ -49,8 +49,7 @@ public class WebServer {
         facade.addRoleFromGSON(gson.toJson(teacher), 1);
         
         HttpServer server = HttpServer.create(new InetSocketAddress(ip, port), 0);
-        server.createContext("/", new WelcomeHandler());
-        server.createContext("/Pages/", new FileHandler());
+        server.createContext("/", new FileHandler());
         server.createContext("/Person", new PersonHandler());
         server.createContext("/Role", new RoleHandler());
         server.setExecutor(null); // Use the default executor

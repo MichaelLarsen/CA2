@@ -19,8 +19,8 @@ class FileHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange he) throws IOException {
         String url = he.getRequestURI().toString();
-        String substring = url.substring(7);
-        File file = new File(contentFolder + substring);
+        System.out.println("SubString: " + url);
+        File file = new File(contentFolder + url);
         byte[] bytesToSend = new byte[(int) file.length()];
         BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
         bis.read(bytesToSend, 0, bytesToSend.length);
